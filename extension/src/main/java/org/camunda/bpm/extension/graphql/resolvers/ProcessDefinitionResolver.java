@@ -10,6 +10,9 @@ import org.camunda.bpm.model.bpmn.instance.StartEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import org.apache.commons.io.IOUtils;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 
 /**
@@ -35,6 +38,16 @@ public class ProcessDefinitionResolver implements GraphQLResolver<ProcessDefinit
 
     public String getName(ProcessDefinition processDefinition) {
         return processDefinition.getName();
+    }
+
+    public String getDiagram(ProcessDefinition processDefinition) {
+        InputStream inputStream = repositoryService.getProcessModel(processDefinition.getId());
+        try {
+            return IOUtils.toString(inputStream, "UTF-8");
+        }
+        catch (IOException ex) {
+            return "";
+        }
     }
 
     public String getKey(ProcessDefinition processDefinition) {

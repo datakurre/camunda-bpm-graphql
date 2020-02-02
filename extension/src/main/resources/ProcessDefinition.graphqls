@@ -3,6 +3,7 @@ type ProcessDefinition @doc(d: "An object structure representing an executable p
     id: String
     name: String
     description: String
+    diagram: String @doc(d: "XML serialization of the process definition BPMN.")
     startFormKey: String @doc(d: "Does this process definition has a {@link FormService#getStartFormData(String) start form key}.")
     isSuspended: Boolean @doc(d: "Returns true if the process definition is in suspended state.")
     versionTag: String @doc(d: "Version tag of the process definition.")
